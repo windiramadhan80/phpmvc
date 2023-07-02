@@ -12,7 +12,7 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Kategori
                     </a>
-                    <a class="nav-link" href="<?= base_url; ?>/kategori/buku">
+                    <a class="nav-link" href="<?= base_url; ?>/buku">
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Buku
                     </a>

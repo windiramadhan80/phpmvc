@@ -1,8 +1,8 @@
 <?php
 
-class KategoriModel
+class BukuModel
 {
-    private $table = 'kategori';
+    private $table = 'buku';
     private $db;
 
     public function __construct()
@@ -10,19 +10,24 @@ class KategoriModel
         $this->db = new Database;
     }
 
-    public function getAllKategori()
+    public function getAllBuku()
     {
-        $this->db->query('SELECT * FROM ' . $this->table);
+        $this->db->query("SELECT buku.*, kategori.nama_kategori FROM " . $this->table . " JOIN kategori ON kategori.id = buku.kategori_id");
         return $this->db->resultSet();
     }
 
-    public function tambahKategori($data)
+    public function tambahBuku($data)
     {
-        $query = "INSERT INTO kategori 
+        $query = "INSERT INTO buku 
                      VALUES
-                    ('', :nama_kategori)";
+                    ('', :judul, :penerbit, :pengarang, :tahun, :kategori_id, :harga)";
         $this->db->query($query);
-        $this->db->bind('nama_kategori', $data['nama_kategori']);
+        $this->db->bind('judul', $data['judul']);
+        $this->db->bind('penerbit', $data['penerbit']);
+        $this->db->bind('pengarang', $data['pengarang']);
+        $this->db->bind('tahun', $data['tahun']);
+        $this->db->bind('kategori_id', $data['kategori_id']);
+        $this->db->bind('harga', $data['harga']);
 
         $this->db->execute();
 
@@ -60,9 +65,14 @@ class KategoriModel
         return $this->db->rowCount();
     }
 
-    public function cariKategori(){
+    public function cariBuku(){
         $search = $_POST['search'];
-        $this->db->query("SELECT * FROM kategori WHERE nama_kategori LIKE :search");
+        $query = 
+        "SELECT * FROM buku
+        INNER JOIN kategori on buku.kategori_id = kategori.id
+        WHERE buku.judul LIKE :search";
+        // $this->db->query("SELECT * FROM buku WHERE judul LIKE :search");
+        $this->db->query($query);
         $this->db->bind('search', "%$search%");
 
         return $this->db->resultSet();
