@@ -22,8 +22,15 @@ class Buku extends Controller
             'buku' => $this->model('BukuModel')->cariBuku(),
             'search' => $_POST['search'],
         ];
+        if (empty($data['buku'])) {
+            echo "
+            <tr>
+                <td colspan='8' class='text-center'>Kata kunci yang anda cari tidak ada!</td>
+            </tr>
+            ";
+        }
         $no = 1;
-        foreach($data['buku'] as $row){
+        foreach ($data['buku'] as $row) {
             echo "
             <tr>
                 <th class='text-center' scope='row'>" . $no++ . "</th>
@@ -43,19 +50,19 @@ class Buku extends Controller
             </tr>
             ";
         }
-        
     }
 
     public function edit($id)
     {
         $data = [
-            'judul' => 'Kategori',
-            'kategori' => $this->model('KategoriModel')->getKategoriById($id),
+            'judul' => 'Buku',
+            'buku' => $this->model('BukuModel')->getBukuById($id),
+            'kategori' => $this->model('KategoriModel')->getAllKategori(),
         ];
         $this->view('templates/header', $data);
         $this->view('templates/navbar');
         $this->view('templates/sidebar', $data);
-        $this->view('kategori/edit', $data);
+        $this->view('buku/edit', $data);
         $this->view('templates/footer');
     }
 

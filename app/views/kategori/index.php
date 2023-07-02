@@ -12,9 +12,9 @@
             Flasher::Message();
             ?>
             <form>
-            <div class="input-group mb-3">
-                <input type="text" id="search" class="form-control" placeholder="Searching" value="">
-            </div>
+                <div class="input-group mb-3">
+                    <input type="text" id="search" class="form-control" placeholder="Searching" value="">
+                </div>
             </form>
             <table class="table responsive table-bordered">
                 <thead class="table-dark">
@@ -71,23 +71,25 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
-    $(function(){
-                $('#search').on('keyup', function(){
-                    let search = $('#search').val();
+    $(function() {
+        $('#search').on('keyup', function() {
+            let search = $('#search').val();
 
-                    $.ajax({
-                        type : 'POST',
-                        url : "<?= base_url; ?>/kategori/cari",
-                        data : {"search":search,},
-                        cache : false,
+            $.ajax({
+                type: 'POST',
+                url: "<?= base_url; ?>/kategori/cari",
+                data: {
+                    "search": search,
+                },
+                cache: false,
 
-                        success: function(msg){
-                            $('#livesearch').html(msg);
-                        },
-                        error: function(data){
-                            console.log('error:',data)
-                        },
-                    });
-                });
+                success: function(msg) {
+                    $('#livesearch').html(msg);
+                },
+                error: function(data) {
+                    console.log('error:', data)
+                },
             });
+        });
+    });
 </script>
